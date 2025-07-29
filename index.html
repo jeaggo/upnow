@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiceNow Hackathon - Tec de Monterrey</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .poster {
+            width: 800px;
+            height: 1200px;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+            position: relative;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(0, 255, 157, 0.3);
+        }
+        
+        /* Animated background elements */
+        .bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .gear {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 3px solid #00ff9d;
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+        
+        .gear::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            border: 2px solid #00ff9d;
+            border-radius: 50%;
+        }
+        
+        .gear:nth-child(1) { top: 10%; left: 10%; animation-duration: 15s; }
+        .gear:nth-child(2) { top: 20%; right: 15%; animation-duration: 25s; animation-direction: reverse; }
+        .gear:nth-child(3) { bottom: 15%; left: 20%; animation-duration: 18s; }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .data-flow {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #00d4ff, transparent);
+            animation: flow 3s ease-in-out infinite;
+        }
+        
+        .data-flow:nth-child(4) { top: 30%; left: 80%; animation-delay: 0s; }
+        .data-flow:nth-child(5) { top: 60%; left: 90%; animation-delay: 1s; }
+        
+        @keyframes flow {
+            0%, 100% { opacity: 0; transform: translateY(-20px); }
+            50% { opacity: 1; transform: translateY(20px); }
+        }
+        
+        /* Header section */
+        .header {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 40px 30px 20px;
+        }
+        
+        .logo-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .tec-logo {
+            width: 60px;
+            height: 60px;
+            background: #00ff9d;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 24px;
+            color: #000;
+        }
+        
+        .main-title {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ff9d 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #ffffff;
+            font-weight: 300;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+        
+        .catchphrase {
+            font-size: 22px;
+            font-weight: 600;
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 2px solid #00d4ff;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(0, 212, 255, 0); }
+        }
+        
+        /* Central illustration */
+        .illustration {
+            position: relative;
+            z-index: 2;
+            height: 300px;
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .team-work {
+            position: relative;
+            width: 400px;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .laptop {
+            width: 120px;
+            height: 80px;
+            background: #2a2a2a;
+            border-radius: 8px;
+            position: relative;
+            border: 3px solid #00ff9d;
+        }
+        
+        .screen {
+            width: 100px;
+            height: 60px;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            border-radius: 4px;
+            margin: 8px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff9d;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .icon {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 255, 157, 0.2);
+            border: 2px solid #00ff9d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff9d;
+            font-size: 18px;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .icon:nth-child(1) { top: 20px; left: 50px; animation-delay: 0s; }
+        .icon:nth-child(2) { top: 40px; right: 40px; animation-delay: 1s; }
+        .icon:nth-child(3) { bottom: 60px; left: 30px; animation-delay: 2s; }
+        .icon:nth-child(4) { bottom: 30px; right: 60px; animation-delay: 3s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        /* Info sections */
+        .info-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 0 40px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            background: rgba(0, 255, 157, 0.1);
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .info-card h3 {
+            color: #00ff9d;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .info-card p {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+        
+        .highlight {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 40px;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff9d 0%, #00d4ff 100%);
+            color: #000;
+            font-size: 24px;
+            font-weight: 800;
+            padding: 20px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.4);
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 157, 0.6);
+        }
+        
+        .limited-spots {
+            color: #ff6b6b;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        /* Hashtags */
+        .hashtags {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 40px;
+            margin-bottom: 20px;
+        }
+        
+        .hashtag {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        /* ServiceNow branding */
+        .servicenow-brand {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            color: #00ff9d;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <!-- Animated background elements -->
+        <div class="bg-elements">
+            <div class="gear"></div>
+            <div class="gear"></div>
+            <div class="gear"></div>
+            <div class="data-flow"></div>
+            <div class="data-flow"></div>
+        </div>
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-area">
+                <div class="tec-logo">TEC</div>
+            </div>
+            <h1 class="main-title">ServiceNow<br>El Puente donde la Estrategia<br>se une a la Tecnología</h1>
+            <p class="subtitle">Hackathon de Transformación Digital</p>
+            <div class="catchphrase">Se Busca Talento para Revolucionar el Futuro Digital</div>
+        </div>
+        
+        <!-- Central illustration -->
+        <div class="illustration">
+            <div class="team-work">
+                <div class="laptop">
+                    <div class="screen">CODE</div>
+                </div>
+                <div class="floating-icons">
+                    <div class="icon">☁</div>
+                    <div class="icon">⚙</div>
+                    <div class="icon">📊</div>
+                    <div class="icon">🔗</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Info grid -->
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>📍 Ubicación & Fecha</h3>
+                <p><span class="highlight">Centro de Congresos</span><br>
+                27 de Septiembre 2025<br>
+                Duración: <span class="highlight">8 horas</span></p>
+            </div>
+            
+            <div class="info-card">
+                <h3>👥 Perfil de Equipos</h3>
+                <p><span class="highlight">Equipos Mixtos</span><br>
+                Negocios + Ingeniería<br>
+                <span class="highlight">Premios</span> para mejores proyectos</p>
+            </div>
+            
+            <div class="info-card">
+                <h3>📝 Inscripciones</h3>
+                <p>Abiertas hasta:<br>
+                <span class="highlight">25 de Agosto 2025</span><br>
+                ¡No pierdas tu lugar!</p>
+            </div>
+            
+            <div class="info-card">
+                <h3>🚀 ¿Qué Harás?</h3>
+                <p>Desarrollar soluciones de<br>
+                <span class="highlight">transformación digital</span><br>
+                usando ServiceNow</p>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <a href="#" class="cta-button">¡Regístrate Ahora!</a>
+            <div class="limited-spots">⚠️ Cupo Limitado</div>
+        </div>
+        
+        <!-- Hashtags -->
+        <div class="hashtags">
+            <span class="hashtag">#DigitalTransformationHack</span>
+            <span class="hashtag">#ServiceNowChallenge</span>
+            <span class="hashtag">#IngenieríaConImpacto</span>
+            <span class="hashtag">#NegociosQueTransforman</span>
+        </div>
+        
+        <!-- ServiceNow branding -->
+        <div class="servicenow-brand">Powered by ServiceNow</div>
+    </div>
+</body>
+</html>
